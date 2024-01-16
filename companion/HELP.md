@@ -11,7 +11,7 @@ Configuring the XCI to trigger SNMP traps requires use of Nexus service.
 
 In the ethernet configuration window select your XCI card and navigate to the SNMP tab.
 
-![Network Configuration](images/xci-netowrk-snmp.png)
+![Network Configuration](images/xci-network-snmp.PNG)
 
 Ensure SNMP is enabled. Set the community string and the trap number to at least one. One of the destination IPs should be the host IP of the companion computer.
 
@@ -19,4 +19,6 @@ SNMP traps will only be triggered from logic cells according to the settings in 
 
 Logic configuration to trigger the traps is then done in the Logic section of Nexus Service. 
 
-![Logic Configuration](images/nexus-logic.png)
+![Logic Configuration](images/nexus-logic.PNG)
+
+Both the network settings and logic configuration must be uploaded to the nexus system once the respective changes are made.

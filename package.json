@@ -3,10 +3,10 @@
 	"version": "0.1.0",
 	"main": "src/main.js",
 	"scripts": {
-		"format": "prettier -w .",
+		"format": "prettier --write",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"lint:raw": "eslint --ext .ts --ext .js --ignore-pattern dist --ignore-pattern pkg",
-		"lint": "yarn lint:raw ."
+		 "lint": "yarn lint:raw ."
 	},
 	"license": "MIT",
 	"repository": {
@@ -14,7 +14,8 @@
 		"url": "git+https://github.com/phillipivan/companion-module-stagetec-xci.gitt"
 	},
 	"dependencies": {
-		"@companion-module/base": "~1.7.0"
+		"@companion-module/base": "~1.7.0",
+		"net-snmp": "~3.9.8"
 	},
 	"devDependencies": {
 		"@companion-module/tools": "^1.4.2"
