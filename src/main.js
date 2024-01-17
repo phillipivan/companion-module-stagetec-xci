@@ -44,6 +44,10 @@ class StagetecXCI extends InstanceBase {
 
 	async configUpdated(config) {
 		this.config = config
+		this.log('debug', `Config Updated. IP: ${this.config.host} Community String: ${this.config.community}`)
+		this.updateActions() // export actions
+		this.updateFeedbacks() // export feedbacks
+		this.updateVariableDefinitions() // export variable definitions
 	}
 
 	// Return config fields for web config

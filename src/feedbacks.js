@@ -1,23 +1,40 @@
-const { combineRgb } = require('@companion-module/base')
+const { combineRgb, Regex } = require('@companion-module/base')
 
 module.exports = async function (self) {
 	self.setFeedbackDefinitions({
-		ChannelState: {
-			name: 'Example Feedback',
+		xciSnmpTrap: {
+			name: 'XCI SNMP Trap',
 			type: 'boolean',
-			label: 'Channel State',
+			label: 'SNMP Trap from XCI',
 			defaultStyle: {
 				bgcolor: combineRgb(255, 0, 0),
 				color: combineRgb(0, 0, 0),
 			},
 			options: [
 				{
-					id: 'num',
+					id: 'ip',
+					type: 'textinput',
+					label: 'XCI IP',
+					default: self.config.host,
+					regex: Regex.IP,
+				},
+				{
+					id: 'community',
+					type: 'textinput',
+					label: 'Community String',
+					default: self.config.community,
+					regex: Regex.SOMETHING,
+				},
+				{
+					id: 'trap',
 					type: 'number',
-					label: 'Test',
-					default: 5,
-					min: 0,
-					max: 10,
+					label: 'Logic Cell',
+					default: 1,
+					min: 1,
+					max: 256,
+					range: true,
+					step: 1,
+					tooltip: 'Refer to Nexus Service for the Logic Cell number'
 				},
 			],
 			callback: (feedback) => {
