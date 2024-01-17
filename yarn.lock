@@ -1530,10 +1530,10 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-net-snmp@^3.9.8:
-  version "3.9.8"
-  resolved "https://registry.yarnpkg.com/net-snmp/-/net-snmp-3.9.8.tgz#2a36c77d1d38470463b1da31a9cf3ed4754fb454"
-  integrity sha512-vrrTTqgOJC8gPgdVn9nnl4/PzauZchGfhkBBirecafu7DOoHGvFehixT7Tl/Y1PLnFwsa3QI6IEhF5yYBSQ0XA==
+net-snmp@~3.10.0:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/net-snmp/-/net-snmp-3.10.0.tgz#0c7dad8b68bd5f12eea3266c8a6f8164273acc49"
+  integrity sha512-xjhb6D+yrHl9jogQADSdo3/852mGbi6GTHVUi40LzHhl1+qC6EAfO2kQ9Yugdz4ZGbAX/jEYc0NvePFENtVhOg==
   dependencies:
     asn1-ber "^1.2.1"
     smart-buffer "^4.1.0"
