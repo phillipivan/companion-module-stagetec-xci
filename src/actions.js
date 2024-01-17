@@ -1,6 +1,6 @@
 module.exports = function (self) {
 	self.setActionDefinitions({
-		sample_action: {
+/* 		sample_action: {
 			name: 'My First Action',
 			options: [
 				{
@@ -15,6 +15,6 @@ module.exports = function (self) {
 			callback: async (event) => {
 				console.log('Hello world!', event.options.num)
 			},
-		},
+		}, */
 	})
 }
