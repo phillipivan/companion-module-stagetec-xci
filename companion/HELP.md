@@ -8,7 +8,9 @@ With each feedback created, specify the IP address of the XCI card and the Logic
 
 ### Configuration
 
-Host IP. This is the default IP that will be used when creating new feedbacks. It is possible to define a seperate IP (XCI) per feedback, so a single module-instance may recieve traps from multiple XCIs.
+Default IP. This is the default IP that will be used when creating new feedbacks. It is possible to define a seperate IP (XCI) per feedback, so a single module-instance may recieve traps from multiple XCIs.
+
+Community String. This is the default community string that will be used when creating new feedbacks. It can be changed per feedback. Traps recieved with an incorrect community string will be ignored. 
 
 ### XCI Configuration
 Configuring the XCI to trigger SNMP traps requires use of Nexus service.

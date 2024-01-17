@@ -14,32 +14,23 @@ let options = {
     address: null,
     transport: "udp4"
 };
-/* 
-var callback = function (error, notification) {
+
+let trapCallback = function (error, notification) {
     if ( error ) {
-        console.error (error);
+        this.log ('error', error);
     } else {
-        console.log (JSON.stringify(notification, null, 2));
+        this.log ('info', JSON.stringify(notification, null, 2));
     }
-}; */
+};
 
 class StagetecXCI extends InstanceBase {
 	constructor(internal) {
 		super(internal)
 	}
-
-
-	callback (error, notification) {
-		if ( error ) {
-			console.error (error);
-		} else {
-			console.log ( JSON.stringify(notification, null, 2));
-		}
-	}
 	
 	async init(config) {
 		this.config = config
-		this.snmpReciever = snmp.createReceiver (options, this.callback);
+		this.snmpReciever = snmp.createReceiver (options, trapCallback.bind(this));
 		this.updateStatus(InstanceStatus.Ok)
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
@@ -66,13 +57,15 @@ class StagetecXCI extends InstanceBase {
 				regex: Regex.IP,
 				tooltip: 'This IP will be used as the default when creating new feedbacks',
 			},
-/* 			{
+			{
 				type: 'textinput',
-				id: 'port',
-				label: 'Target Port',
+				id: 'community',
+				label: 'Community String',
 				width: 4,
-				regex: Regex.PORT,
-			}, */
+				regex: Regex.SOMETHING,
+				default: 'public',
+				tooltip: 'This community string will be used as the default when creating new feedbacks',
+			},
 		]
 	}
 
