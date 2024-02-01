@@ -15,7 +15,7 @@
 	},
 	"dependencies": {
 		"@companion-module/base": "~1.7.0",
-		"net-snmp": "~3.10.0"
+		"net-snmp": "~3.10.1"
 	},
 	"devDependencies": {
 		"@companion-module/tools": "^1.4.2"

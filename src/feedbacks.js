@@ -12,7 +12,7 @@ module.exports = async function (self) {
 			},
 			options: [
 				{
-					id: 'ip',
+					id: 'xci',
 					type: 'textinput',
 					label: 'XCI IP',
 					default: self.config.host,
@@ -24,9 +24,10 @@ module.exports = async function (self) {
 					label: 'Community String',
 					default: self.config.community,
 					regex: Regex.SOMETHING,
+					tooltip: 'Only used during initialisation',
 				},
 				{
-					id: 'trap',
+					id: 'cell',
 					type: 'number',
 					label: 'Logic Cell',
 					default: 1,
@@ -34,16 +35,14 @@ module.exports = async function (self) {
 					max: 256,
 					range: true,
 					step: 1,
-					tooltip: 'Refer to Nexus Service for the Logic Cell number'
+					tooltip: 'Refer to Nexus Service for the Logic Cell number',
 				},
 			],
-			callback: (feedback) => {
-				console.log('Hello world!', feedback.options.num)
-				if (feedback.options.num > 5) {
-					return true
-				} else {
-					return false
-				}
+			callback: async (feedback) => {
+				return await self.getLogicCell(feedback.options.xci, feedback.options.cell)
+			},
+			subscribe: (feedback) => {
+				//self.getLogicCell(feedback.options.xci, feedback.options.cell)
 			},
 		},
 	})

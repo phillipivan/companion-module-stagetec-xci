@@ -3,34 +3,34 @@ const UpgradeScripts = require('./upgrades')
 const UpdateActions = require('./actions')
 const UpdateFeedbacks = require('./feedbacks')
 const UpdateVariableDefinitions = require('./variables')
-const snmp = require ("net-snmp")
+const snmp = require('net-snmp')
 
 let options = {
-    port: 162,
-    disableAuthorization: true,
-    includeAuthentication: true,
-    accessControlModelType: snmp.AccessControlModelType.None,
-    engineID: "8000B983800123456789ABCDEF01234567", // where the X's are random hex digits
-    address: null,
-    transport: "udp4"
-};
+	port: 162,
+	disableAuthorization: true,
+	includeAuthentication: true,
+	accessControlModelType: snmp.AccessControlModelType.None,
+	engineID: '8000B983800123456789ABCDEF01234567', // where the X's are random hex digits
+	address: null,
+	transport: 'udp4',
+}
 
 let trapCallback = function (error, notification) {
-    if ( error ) {
-        this.log ('error', error);
-    } else {
-        this.log ('info', JSON.stringify(notification, null, 2));
-    }
-};
+	if (error) {
+		this.log('error', error)
+	} else {
+		this.log('info', JSON.stringify(notification, null, 2))
+	}
+}
 
 class StagetecXCI extends InstanceBase {
 	constructor(internal) {
 		super(internal)
 	}
-	
+
 	async init(config) {
 		this.config = config
-		this.snmpReciever = snmp.createReceiver (options, trapCallback.bind(this));
+		this.snmpReciever = snmp.createReceiver(options, trapCallback.bind(this))
 		this.updateStatus(InstanceStatus.Ok)
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
@@ -39,7 +39,7 @@ class StagetecXCI extends InstanceBase {
 	// When module gets deleted
 	async destroy() {
 		this.log('debug', 'destroy')
-		this.snmpReciever.receiver.close ()
+		this.snmpReciever.receiver.close()
 	}
 
 	async configUpdated(config) {
@@ -71,6 +71,19 @@ class StagetecXCI extends InstanceBase {
 				tooltip: 'This community string will be used as the default when creating new feedbacks',
 			},
 		]
+	}
+
+	getLogicCell(ip, cell) {
+		let logicCell = parseInt(cell)
+		let xci = ip.toString()
+		if (isNaN(logicCell) || logicCell > 256 || logicCell < 1) {
+			this.log('warn', `getLogicCell has been passed an out of range value ${logicCell} ${cell}`)
+			return undefined
+		}
+		if (this.xci[`${xci}`].cell[logicCell] === undefined) {
+			this.xci[`${xci}`].cell[logicCell] = false
+		}
+		return this.xci[`${xci}`].cell[logicCell]
 	}
 
 	updateActions() {
