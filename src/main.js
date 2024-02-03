@@ -18,8 +18,29 @@ let options = {
 let trapCallback = function (error, notification) {
 	if (error) {
 		this.log('error', error)
+		this.updateStatus(InstanceStatus.UnknownError, error)
 	} else {
-		this.log('info', JSON.stringify(notification, null, 2))
+		let trap = notification
+		let varbinds = []
+		varbinds = trap.pdu.varbinds
+		if (trap.rinfo.address !== this.config.host) {
+			this.updateStatus(InstanceStatus.UnknownWarning, 'Trap recieved from unexpected IP')
+			this.log('error', `Unexpected trap recieved from ${trap.rinfo.address}`)
+			return
+		}
+		if (trap.pdu.community !== this.config.community) {
+			this.updateStatus(InstanceStatus.BadConfig, 'Incorrect Community')
+			this.log('error', `Expected community ${this.config.community} recieved community ${trap.pdu.community}`)
+			return
+		}
+		if (varbinds === undefined || varbinds === null) {
+			this.updateStatus(InstanceStatus.UnknownWarning, 'Trap has no Varbinds')
+			this.log('error', `Received trap contains no varbinds`)
+			return
+		}
+		this.log('info', `Varbinds length: ${varbinds.length}`)
+		this.log('info', JSON.stringify(varbinds, null, 2))
+		this.updateStatus(InstanceStatus.Ok, 'Trap Recieved')
 	}
 }
 
@@ -31,7 +52,7 @@ class StagetecXCI extends InstanceBase {
 	async init(config) {
 		this.config = config
 		this.snmpReciever = snmp.createReceiver(options, trapCallback.bind(this))
-		this.updateStatus(InstanceStatus.Ok)
+		this.updateStatus(InstanceStatus.Ok, 'Listening')
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
 		this.updateVariableDefinitions() // export variable definitions
@@ -40,6 +61,7 @@ class StagetecXCI extends InstanceBase {
 	async destroy() {
 		this.log('debug', 'destroy')
 		this.snmpReciever.receiver.close()
+		delete this.snmpReciever
 	}
 
 	async configUpdated(config) {
