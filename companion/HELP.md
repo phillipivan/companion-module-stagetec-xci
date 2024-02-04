@@ -4,6 +4,8 @@ This module is a reciver for SNMP traps from the Stagetec Nexus XCI card. It all
 
 Each XCI card is capable of 256 logic configurable SNMP traps. NB. In the test system the 256th logic cell doesnt report an OID correctly.
 
+Due to the necessary UDP port binding, it is only possible to run one instance of this module at a time.
+
 ### Configuration
 
 **Default IP** 

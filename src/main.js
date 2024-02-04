@@ -19,8 +19,8 @@ let options = {
 
 let trapCallback = function (error, notification) {
 	if (error) {
-		this.log('error', error)
-		this.updateStatus(InstanceStatus.UnknownError, error)
+		this.log('error', JSON.stringify(error))
+		this.updateStatus(InstanceStatus.UnknownError, JSON.stringify(error))
 	} else {
 		let trap = notification
 		let varbinds = []
