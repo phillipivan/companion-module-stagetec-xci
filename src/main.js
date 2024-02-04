@@ -4,6 +4,8 @@ const UpdateActions = require('./actions')
 const UpdateFeedbacks = require('./feedbacks')
 const UpdateVariableDefinitions = require('./variables')
 const snmp = require('net-snmp')
+const xciLogicOid = '1.3.6.1.4.1.40085.1.1.1.3.2.3.1.2.'
+const xciLogicTrue = 2
 
 let options = {
 	port: 162,
@@ -39,8 +41,30 @@ let trapCallback = function (error, notification) {
 			return
 		}
 		this.log('info', `Varbinds length: ${varbinds.length}`)
-		this.log('info', JSON.stringify(varbinds, null, 2))
+		//this.log('info', JSON.stringify(varbinds, null, 2))
 		this.updateStatus(InstanceStatus.Ok, 'Trap Recieved')
+		for (let i = 0; i < varbinds.length; i++) {
+			if (varbinds[i].value !== undefined) {
+				this.log('info', `OID: ${varbinds[i].oid} value: ${varbinds[i].value}`)
+				let oid = varbinds[i].oid
+				if (oid.startsWith(xciLogicOid)) {
+					oid = oid.split('.')
+					if (oid.length == 16) {
+						let logicCell = parseInt(oid[15])
+						let value = varbinds[i].value == xciLogicTrue ? true : false
+						if (logicCell >= 1 && logicCell <= 256) {
+							this.logicCell[logicCell] = value
+							this.log('info', `Logic Cell ${logicCell} set to ${value}`)
+							this.checkFeedbacks('xciSnmpTrap')
+						} else {
+							this.log('warn', `oid out of range: ${oid[15]}`)
+						}
+					}
+				}
+				continue
+			}
+			this.log('info', `OID: ${varbinds[i].oid} has no value field`)
+		}
 	}
 }
 
@@ -56,6 +80,10 @@ class StagetecXCI extends InstanceBase {
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
 		this.updateVariableDefinitions() // export variable definitions
+		this.logicCell = []
+		for (let i = 1; i <= 256; i++) {
+			this.logicCell[i] = false
+		}
 	}
 	// When module gets deleted
 	async destroy() {
@@ -93,19 +121,6 @@ class StagetecXCI extends InstanceBase {
 				tooltip: 'This community string will be used as the default when creating new feedbacks',
 			},
 		]
-	}
-
-	getLogicCell(ip, cell) {
-		let logicCell = parseInt(cell)
-		let xci = ip.toString()
-		if (isNaN(logicCell) || logicCell > 256 || logicCell < 1) {
-			this.log('warn', `getLogicCell has been passed an out of range value ${logicCell} ${cell}`)
-			return undefined
-		}
-		if (this.xci[`${xci}`].cell[logicCell] === undefined) {
-			this.xci[`${xci}`].cell[logicCell] = false
-		}
-		return this.xci[`${xci}`].cell[logicCell]
 	}
 
 	updateActions() {

@@ -1,4 +1,4 @@
-const { combineRgb, Regex } = require('@companion-module/base')
+const { combineRgb } = require('@companion-module/base')
 
 module.exports = async function (self) {
 	self.setFeedbackDefinitions({
@@ -12,21 +12,6 @@ module.exports = async function (self) {
 			},
 			options: [
 				{
-					id: 'xci',
-					type: 'textinput',
-					label: 'XCI IP',
-					default: self.config.host,
-					regex: Regex.IP,
-				},
-				{
-					id: 'community',
-					type: 'textinput',
-					label: 'Community String',
-					default: self.config.community,
-					regex: Regex.SOMETHING,
-					tooltip: 'Only used during initialisation',
-				},
-				{
 					id: 'cell',
 					type: 'number',
 					label: 'Logic Cell',
@@ -38,11 +23,8 @@ module.exports = async function (self) {
 					tooltip: 'Refer to Nexus Service for the Logic Cell number',
 				},
 			],
-			callback: async (feedback) => {
-				return await self.getLogicCell(feedback.options.xci, feedback.options.cell)
-			},
-			subscribe: (feedback) => {
-				//self.getLogicCell(feedback.options.xci, feedback.options.cell)
+			callback: (feedback) => {
+				return self.logicCell[feedback.options.cell]
 			},
 		},
 	})
