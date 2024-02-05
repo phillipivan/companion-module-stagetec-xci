@@ -21,7 +21,7 @@ The community string set on the XCI. Any traps recieved with a non-matching comm
 ### XCI Configuration
 Configuring the XCI to trigger SNMP traps requires use of Nexus service.
 
-In the ethernet configuration window select your XCI card and navigate to the SNMP tab.
+In the ethernet configuration window select the XCI card and navigate to the SNMP tab.
 
 ![Network Configuration](images/xci-network-snmp.PNG)
 
