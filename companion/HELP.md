@@ -8,7 +8,7 @@ Due to the necessary UDP port binding, it is only possible to run one instance o
 
 ### Configuration
 
-**Default IP** 
+**XCI IP** 
 
 
 The IP of the XCI card. Any traps recieved from other IPs will be ignored.

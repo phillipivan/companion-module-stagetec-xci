@@ -106,10 +106,10 @@ class StagetecXCI extends InstanceBase {
 			{
 				type: 'textinput',
 				id: 'host',
-				label: 'Default IP',
+				label: 'XCI IP',
 				width: 8,
 				regex: Regex.IP,
-				tooltip: 'This IP will be used as the default when creating new feedbacks',
+				tooltip: 'This IP of the Nexus XCI',
 			},
 			{
 				type: 'textinput',
@@ -118,7 +118,7 @@ class StagetecXCI extends InstanceBase {
 				width: 4,
 				regex: Regex.SOMETHING,
 				default: 'public',
-				tooltip: 'This community string will be used as the default when creating new feedbacks',
+				tooltip: 'This community configured on the XCI',
 			},
 		]
 	}
