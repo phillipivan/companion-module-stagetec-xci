@@ -5,8 +5,8 @@
 	"description": "Stagetec Nexus XCI SNMP trap reciever",
 	"version": "0.0.0",
 	"license": "MIT",
-	"repository": "git+https://github.com/phillipivan/companion-module-stagetec-xci.git",
-	"bugs": "https://github.com/phillipivan/companion-module-stagetec-xci/issues",
+	"repository": "git+https://github.com/bitfocus/companion-module-stagetec-xci.git",
+	"bugs": "https://github.com/bitfocus/companion-module-stagetec-xci/issues",
 	"maintainers": [
 		{
 			"name": "Phillip Ivan Pietruschka",

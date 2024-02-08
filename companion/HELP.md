@@ -34,3 +34,7 @@ Logic configuration to trigger the traps is then done in the Logic section of Ne
 ![Logic Configuration](images/nexus-logic.png)
 
 Both the network settings and logic configuration must be uploaded to the nexus system once the respective changes are made.
+
+### Note on use.
+
+Since this module just listens for SNMP traps, it will not pickup the state of logic cells at the time of module initialisation. Initally all are initialised to false.

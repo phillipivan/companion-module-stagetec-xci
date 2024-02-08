@@ -11,7 +11,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/phillipivan/companion-module-stagetec-xci.gitt"
+		"url": "git+https://github.com/bitfocus/companion-module-stagetec-xci.git"
 	},
 	"dependencies": {
 		"@companion-module/base": "~1.7.0",
