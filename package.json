@@ -18,7 +18,7 @@
 		"net-snmp": "~3.10.3"
 	},
 	"devDependencies": {
-		"@companion-module/tools": "^1.4.3"
+		"@companion-module/tools": "^1.5.0"
 	},
 	"prettier": "@companion-module/tools/.prettierrc.json"
 }
