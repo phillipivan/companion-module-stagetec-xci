@@ -32,7 +32,7 @@ let trapCallback = function (error, notification) {
 		}
 		if (trap.pdu.community !== this.config.community) {
 			this.updateStatus(InstanceStatus.BadConfig, 'Incorrect Community')
-			this.log('error', `Expected community ${this.config.community} recieved community ${trap.pdu.community}`)
+			this.log('error', `Expected community: ${this.config.community} Recieved community: ${trap.pdu.community}`)
 			return
 		}
 		if (varbinds === undefined || varbinds === null) {
@@ -40,12 +40,11 @@ let trapCallback = function (error, notification) {
 			this.log('error', `Received trap contains no varbinds`)
 			return
 		}
-		this.log('info', `Varbinds length: ${varbinds.length}`)
 		//this.log('info', JSON.stringify(varbinds, null, 2))
 		this.updateStatus(InstanceStatus.Ok, 'Trap Recieved')
 		for (let i = 0; i < varbinds.length; i++) {
 			if (varbinds[i].value !== undefined) {
-				this.log('info', `OID: ${varbinds[i].oid} value: ${varbinds[i].value}`)
+				//this.log('info', `OID: ${varbinds[i].oid} value: ${varbinds[i].value}`)
 				let oid = varbinds[i].oid
 				if (oid.startsWith(xciLogicOid)) {
 					oid = oid.split('.')
@@ -63,7 +62,7 @@ let trapCallback = function (error, notification) {
 				}
 				continue
 			}
-			this.log('info', `OID: ${varbinds[i].oid} has no value field`)
+			this.log('warn', `OID: ${varbinds[i].oid} has no value field`)
 		}
 	}
 }
