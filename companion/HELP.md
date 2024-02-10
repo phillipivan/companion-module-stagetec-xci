@@ -37,4 +37,4 @@ Both the network settings and logic configuration must be uploaded to the nexus 
 
 ### Note on use
 
-Since this module just listens for SNMP traps, it will not pickup the state of logic cells at the time of module initialisation. Initally all are initialised to false.
+Since this module just listens for SNMP traps, it will not pickup the state of logic cells at the time of module initialisation. On initialisation all are set to false.
