@@ -56,7 +56,7 @@ let trapCallback = function (error, notification) {
 							this.log('info', `Logic Cell ${logicCell} set to ${value}`)
 							this.checkFeedbacks('xciSnmpTrap')
 						} else {
-							this.log('warn', `oid out of range: ${oid[15]}`)
+							this.log('debug', `OID out of range: ${varbinds[i].oid}, raw value: ${varbinds[i].value}`)
 						}
 					}
 				}
@@ -108,7 +108,7 @@ class StagetecXCI extends InstanceBase {
 				label: 'XCI IP',
 				width: 8,
 				regex: Regex.IP,
-				tooltip: 'This IP of the Nexus XCI',
+				tooltip: 'The IP of the Nexus XCI',
 			},
 			{
 				type: 'textinput',
@@ -117,7 +117,7 @@ class StagetecXCI extends InstanceBase {
 				width: 4,
 				regex: Regex.SOMETHING,
 				default: 'public',
-				tooltip: 'This community configured on the XCI',
+				tooltip: 'The configured community string',
 			},
 		]
 	}
