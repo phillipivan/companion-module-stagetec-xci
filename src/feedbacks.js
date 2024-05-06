@@ -20,11 +20,38 @@ module.exports = async function (self) {
 					max: 256,
 					range: true,
 					step: 1,
-					tooltip: 'Refer to Nexus Service for the Logic Cell number',
+					tooltip: 'Refer to Nexus Service for Logic Cell number',
+					isVisible: (options) => {
+						return !options.useVar
+					},
+				},
+				{
+					id: 'cellVar',
+					type: 'textinput',
+					label: 'Logic Cell',
+					default: '',
+					useVariables: true,
+					tooltip: 'Variable must return an integer between 1 and 256',
+					isVisible: (options) => {
+						return options.useVar
+					},
+				},
+				{
+					id: 'useVar',
+					type: 'checkbox',
+					label: 'Use Variable',
+					default: false,
 				},
 			],
-			callback: (feedback) => {
-				return self.logicCell[feedback.options.cell]
+			callback: async (feedback, context) => {
+				let cell = feedback.options.useVar
+					? parseInt(await context.parseVariablesInString(feedback.options.cellVar))
+					: parseInt(feedback.options.cell)
+				if (isNaN(cell) || cell < 1 || cell > 256) {
+					self.log('warn', `Invalid Cell! ${cell} from ${feedback.options.cellVar}`)
+					return undefined
+				}
+				return self.logicCell[cell]
 			},
 		},
 	})
