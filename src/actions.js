@@ -47,24 +47,25 @@ module.exports = function (self) {
 				},
 			],
 			callback: async (action) => {
-				if (action.options.all && !action.options.useVar) {
-					let varList = []
+				let varList = []
+				if (action.options.all) {
 					for (let i = 1; i <= 256; i++) {
 						self.latch[i] = false
-						varList[`cellLatch_${cell}`] = self.latch[i]
+						varList[`cellLatch_${i}`] = self.latch[i]
 					}
+					self.log('debug', 'Resetting all latches')
 					self.setVariableValues(varList)
 					return true
 				}
 				let cell = action.options.useVar
-					? parseInt(await self.parseVarliablesInString(action.options.cellVar))
+					? parseInt(await self.parseVariablesInString(action.options.cellVar))
 					: parseInt(action.options.cell)
 				if (isNaN(cell) || cell < 1 || cell > 256) {
 					self.log('warn', `Invalid Cell! ${cell} from ${action.options.cellVar}`)
 					return undefined
 				}
-				let varList = []
 				self.latch[cell] = false
+				self.log('debug', `Resetting latch ${cell}`)
 				varList[`cellLatch_${cell}`] = self.latch[cell]
 				self.setVariableValues(varList)
 			},

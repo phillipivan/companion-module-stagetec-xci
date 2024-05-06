@@ -45,7 +45,7 @@ module.exports = async function (self) {
 			],
 			callback: async (feedback, context) => {
 				let cell = feedback.options.useVar
-					? parseInt(await context.parseVarliablesInString(feedback.options.cellVar))
+					? parseInt(await context.parseVariablesInString(feedback.options.cellVar))
 					: parseInt(feedback.options.cell)
 				if (isNaN(cell) || cell < 1 || cell > 256) {
 					self.log('warn', `Invalid Cell! ${cell} from ${feedback.options.cellVar}`)
