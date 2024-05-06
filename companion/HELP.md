@@ -66,7 +66,7 @@ Follows the state of the specified SNMP trap
 
 ### Version 1.1.0
 - Accept variables for feedback cell input
-- Add 'most recent' variable, displays the cell number of most recently recieved postive going trap
+- Add 'most recent' variable, displays the cell number of most recently received positive going trap
 - Add cell latch variable, and reset action. Goes true when triggered by an SNMP trap, and stays that way until reset
 - Update companion-module-base to 1.8.0
 - Update net-snmp to 3.11.2
