@@ -1,6 +1,6 @@
 {
 	"name": "stagetec-xci",
-	"version": "1.0.2",
+	"version": "1.1.0",
 	"main": "src/main.js",
 	"scripts": {
 		"format": "prettier --write",
@@ -14,8 +14,8 @@
 		"url": "git+https://github.com/bitfocus/companion-module-stagetec-xci.git"
 	},
 	"dependencies": {
-		"@companion-module/base": "~1.7.0",
-		"net-snmp": "~3.10.3"
+		"@companion-module/base": "~1.8.0",
+		"net-snmp": "~3.11.2"
 	},
 	"devDependencies": {
 		"@companion-module/tools": "^1.5.0"

@@ -55,6 +55,14 @@ let trapCallback = function (error, notification) {
 							this.logicCell[logicCell] = value
 							this.log('info', `Logic Cell ${logicCell} set to ${value}`)
 							this.checkFeedbacks('xciSnmpTrap')
+							if (value) {
+								let varList = []
+								this.mostRecent = logicCell
+								this.latch[logicCell] = value
+								varList['mostRecent'] = this.mostRecent
+								varList[`cellLatch_${logicCell}`] = value
+								this.setVariableValues(varList)
+							}
 						} else {
 							this.log('debug', `OID out of range: ${varbinds[i].oid}, raw value: ${varbinds[i].value}`)
 						}
@@ -79,10 +87,7 @@ class StagetecXCI extends InstanceBase {
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
 		this.updateVariableDefinitions() // export variable definitions
-		this.logicCell = []
-		for (let i = 1; i <= 256; i++) {
-			this.logicCell[i] = false
-		}
+		this.resetVariables()
 	}
 	// When module gets deleted
 	async destroy() {
@@ -91,12 +96,28 @@ class StagetecXCI extends InstanceBase {
 		delete this.snmpReciever
 	}
 
+	async resetVariables() {
+		let varList = []
+		this.logicCell = []
+		this.latch = []
+		for (let i = 1; i <= 256; i++) {
+			this.logicCell[i] = false
+			this.latch[i] = false
+			varList[`cellLatch_${i}`] = this.latch[i]
+		}
+		this.mostRecent = 0
+		varList['mostRecent'] = this.mostRecent
+		this.setVariableValues(varList)
+		this.checkFeedbacks('xciSnmpTrap')
+	}
+
 	async configUpdated(config) {
 		this.config = config
 		this.log('debug', `Config Updated. IP: ${this.config.host} Community String: ${this.config.community}`)
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
 		this.updateVariableDefinitions() // export variable definitions
+		this.resetVariables()
 	}
 
 	// Return config fields for web config
