@@ -55,6 +55,7 @@ module.exports = function (self) {
 					}
 					self.log('debug', 'Resetting all latches')
 					self.setVariableValues(varList)
+					self.checkFeedbacks('xciSnmpTrapLatch')
 					return true
 				}
 				let cell = action.options.useVar
@@ -67,6 +68,7 @@ module.exports = function (self) {
 				self.latch[cell] = false
 				self.log('debug', `Resetting latch ${cell}`)
 				varList[`cellLatch_${cell}`] = self.latch[cell]
+				self.checkFeedbacks('xciSnmpTrapLatch')
 				self.setVariableValues(varList)
 			},
 		},
