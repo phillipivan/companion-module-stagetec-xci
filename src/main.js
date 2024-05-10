@@ -62,6 +62,7 @@ let trapCallback = function (error, notification) {
 								varList['mostRecent'] = this.mostRecent
 								varList[`cellLatch_${logicCell}`] = value
 								this.setVariableValues(varList)
+								this.checkFeedbacks('xciSnmpTrapLatch')
 							}
 						} else {
 							this.log('debug', `OID out of range: ${varbinds[i].oid}, raw value: ${varbinds[i].value}`)
@@ -83,7 +84,11 @@ class StagetecXCI extends InstanceBase {
 	async init(config) {
 		this.config = config
 		this.snmpReciever = snmp.createReceiver(options, trapCallback.bind(this))
-		this.updateStatus(InstanceStatus.Ok, 'Listening')
+		if (this.config.host === undefined || this.config.host === '') {
+			this.updateStatus(InstanceStatus.BadConfig)
+		} else {
+			this.updateStatus(InstanceStatus.Ok, 'Listening')
+		}
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
 		this.updateVariableDefinitions() // export variable definitions
@@ -114,6 +119,11 @@ class StagetecXCI extends InstanceBase {
 	async configUpdated(config) {
 		this.config = config
 		this.log('debug', `Config Updated. IP: ${this.config.host} Community String: ${this.config.community}`)
+		if (this.config.host === undefined || this.config.host === '') {
+			this.updateStatus(InstanceStatus.BadConfig)
+		} else {
+			this.updateStatus(InstanceStatus.Ok, 'Listening')
+		}
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
 		this.updateVariableDefinitions() // export variable definitions

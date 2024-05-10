@@ -64,6 +64,10 @@ Follows the state of the specified SNMP trap
 
 ## Version History
 
+### Version 1.1.1
+- Add latching feedbacks to complement variables
+- Update status on absent XCI IP
+
 ### Version 1.1.0
 - Accept variables for feedback cell input
 - Add 'most recent' variable, displays the cell number of most recently received positive going trap
