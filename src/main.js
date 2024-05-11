@@ -86,6 +86,7 @@ class StagetecXCI extends InstanceBase {
 		this.snmpReciever = snmp.createReceiver(options, trapCallback.bind(this))
 		if (this.config.host === undefined || this.config.host === '') {
 			this.updateStatus(InstanceStatus.BadConfig)
+			this.log('error', 'Invalid config - missing IP')
 		} else {
 			this.updateStatus(InstanceStatus.Ok, 'Listening')
 		}
@@ -121,6 +122,7 @@ class StagetecXCI extends InstanceBase {
 		this.log('debug', `Config Updated. IP: ${this.config.host} Community String: ${this.config.community}`)
 		if (this.config.host === undefined || this.config.host === '') {
 			this.updateStatus(InstanceStatus.BadConfig)
+			this.log('error', 'Invalid config - missing IP')
 		} else {
 			this.updateStatus(InstanceStatus.Ok, 'Listening')
 		}
