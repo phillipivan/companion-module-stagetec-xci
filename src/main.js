@@ -22,7 +22,7 @@ let trapCallback = function (error, notification) {
 		this.log('error', JSON.stringify(error))
 		this.updateStatus(InstanceStatus.UnknownError, JSON.stringify(error))
 	} else {
-		let trap = notification
+		const trap = notification
 		let varbinds = []
 		varbinds = trap.pdu.varbinds
 		if (trap.rinfo.address !== this.config.host) {
@@ -40,30 +40,31 @@ let trapCallback = function (error, notification) {
 			this.log('error', `Received trap contains no varbinds`)
 			return
 		}
-		//this.log('info', JSON.stringify(varbinds, null, 2))
 		this.updateStatus(InstanceStatus.Ok, 'Trap Recieved')
 		for (let i = 0; i < varbinds.length; i++) {
 			if (varbinds[i].value !== undefined) {
-				//this.log('info', `OID: ${varbinds[i].oid} value: ${varbinds[i].value}`)
 				let oid = varbinds[i].oid
 				if (oid.startsWith(xciLogicOid)) {
 					oid = oid.split('.')
 					if (oid.length == 16) {
-						let logicCell = parseInt(oid[15])
-						let value = varbinds[i].value == xciLogicTrue ? true : false
+						const logicCell = parseInt(oid[15])
+						const value = varbinds[i].value == xciLogicTrue ? true : false
 						if (logicCell >= 1 && logicCell <= 256) {
-							this.logicCell[logicCell] = value
+							this.logicCell[logicCell].value = value
 							this.log('info', `Logic Cell ${logicCell} set to ${value}`)
-							this.checkFeedbacks('xciSnmpTrap')
+							let feedbacksToCheck = ['xciSnmpTrap']
 							if (value) {
 								let varList = []
 								this.mostRecent = logicCell
-								this.latch[logicCell] = value
+								this.logicCell[logicCell].latch = value
+								this.logicCell[logicCell].count += 1
 								varList['mostRecent'] = this.mostRecent
 								varList[`cellLatch_${logicCell}`] = value
+								varList[`cellCount_${logicCell}`] = this.logicCell[logicCell].count
 								this.setVariableValues(varList)
-								this.checkFeedbacks('xciSnmpTrapLatch')
+								feedbacksToCheck.push('xciSnmpTrapLatch')
 							}
+							this.checkFeedbacks(...feedbacksToCheck)
 						} else {
 							this.log('debug', `OID out of range: ${varbinds[i].oid}, raw value: ${varbinds[i].value}`)
 						}
@@ -105,11 +106,14 @@ class StagetecXCI extends InstanceBase {
 	async resetVariables() {
 		let varList = []
 		this.logicCell = []
-		this.latch = []
 		for (let i = 1; i <= 256; i++) {
-			this.logicCell[i] = false
-			this.latch[i] = false
-			varList[`cellLatch_${i}`] = this.latch[i]
+			this.logicCell[i] = {
+				value: false,
+				latch: false,
+				count: 0,
+			}
+			varList[`cellLatch_${i}`] = this.logicCell[i].latch
+			varList[`cellCount_${i}`] = this.logicCell[i].count
 		}
 		this.mostRecent = 0
 		varList['mostRecent'] = this.mostRecent
