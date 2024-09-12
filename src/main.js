@@ -1,9 +1,9 @@
-const { InstanceBase, runEntrypoint, Regex, InstanceStatus } = require('@companion-module/base')
-const UpgradeScripts = require('./upgrades')
-const UpdateActions = require('./actions')
-const UpdateFeedbacks = require('./feedbacks')
-const UpdateVariableDefinitions = require('./variables')
-const snmp = require('net-snmp')
+import { InstanceBase, runEntrypoint, Regex, InstanceStatus } from '@companion-module/base'
+import UpgradeScripts from './upgrades.js'
+import UpdateActions from './actions.js'
+import UpdateFeedbacks from './feedbacks.js'
+import UpdateVariableDefinitions from './variables.js'
+import snmp from 'net-snmp'
 const xciLogicOid = '1.3.6.1.4.1.40085.1.1.1.3.2.3.1.2.'
 const xciLogicTrue = 2
 
