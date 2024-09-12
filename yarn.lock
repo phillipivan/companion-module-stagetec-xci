@@ -1650,13 +1650,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"net-snmp@npm:~3.13.0":
-  version: 3.13.2
-  resolution: "net-snmp@npm:3.13.2"
+"net-snmp@npm:~3.14.1":
+  version: 3.14.1
+  resolution: "net-snmp@npm:3.14.1"
   dependencies:
     asn1-ber: "npm:^1.2.1"
     smart-buffer: "npm:^4.1.0"
-  checksum: 10c0/7c4b4434658f227a22f3a681da1c081b6a61ff866c638d1a669b38c001af4836bbcd71bd8200eaeb4c5a8be3f17cb62a6f26f10cc46f41c2830fef3401e4d150
+  checksum: 10c0/da40153259f5914981d2a8f7f71d3ff4b139d9a64ce8aee103f007cae30d884bb2c607fb158d0aedb556834a1f6db7a3c2fa1bcabcc1565d9aa98db8f29cd423
   languageName: node
   linkType: hard
 
@@ -2100,7 +2100,7 @@ __metadata:
     "@companion-module/base": "npm:~1.10.0"
     "@companion-module/tools": "npm:^2.0.3"
     eslint: "npm:^9.10.0"
-    net-snmp: "npm:~3.13.0"
+    net-snmp: "npm:~3.14.1"
     prettier: "npm:^3.3.3"
   languageName: unknown
   linkType: soft

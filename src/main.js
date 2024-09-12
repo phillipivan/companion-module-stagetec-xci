@@ -99,7 +99,7 @@ class StagetecXCI extends InstanceBase {
 	// When module gets deleted
 	async destroy() {
 		this.log('debug', 'destroy')
-		this.snmpReciever.receiver.close()
+		this.snmpReciever.close()
 		delete this.snmpReciever
 	}
 
