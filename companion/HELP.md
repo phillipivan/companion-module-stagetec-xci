@@ -1,6 +1,6 @@
 ## Stagetec Nexus XCI
 
-- [Stagetec XCI](https://www.stagetec.com/en/products/audionetwork/nexus-modular.html)
+- [Stagetec XCI](https://www.stagetec.com/en/nexus-modular.html)
 
 This module is a SNMP trap reciever optimised for the logic configurable traps from the Stagetec Nexus XCI. It allows boolean feedbacks to be created and used to trigger events in Companion based on Logic configured in Nexus Service.
 
