@@ -1,6 +1,6 @@
-const { combineRgb } = require('@companion-module/base')
+import { combineRgb } from '@companion-module/base'
 
-module.exports = async function (self) {
+export default async function (self) {
 	self.setFeedbackDefinitions({
 		xciSnmpTrap: {
 			name: 'XCI SNMP Trap',
@@ -44,14 +44,14 @@ module.exports = async function (self) {
 				},
 			],
 			callback: async (feedback, context) => {
-				let cell = feedback.options.useVar
+				const cell = feedback.options.useVar
 					? parseInt(await context.parseVariablesInString(feedback.options.cellVar))
 					: parseInt(feedback.options.cell)
 				if (isNaN(cell) || cell < 1 || cell > 256) {
 					self.log('warn', `Invalid Cell! ${cell} from ${feedback.options.cellVar}`)
 					return undefined
 				}
-				return self.logicCell[cell]
+				return self.logicCell[cell].value
 			},
 		},
 		xciSnmpTrapLatch: {
@@ -96,14 +96,14 @@ module.exports = async function (self) {
 				},
 			],
 			callback: async (feedback, context) => {
-				let cell = feedback.options.useVar
+				const cell = feedback.options.useVar
 					? parseInt(await context.parseVariablesInString(feedback.options.cellVar))
 					: parseInt(feedback.options.cell)
 				if (isNaN(cell) || cell < 1 || cell > 256) {
 					self.log('warn', `Invalid Cell! ${cell} from ${feedback.options.cellVar}`)
 					return undefined
 				}
-				return self.latch[cell]
+				return self.logicCell[cell].latch
 			},
 		},
 	})
