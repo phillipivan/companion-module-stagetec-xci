@@ -76,6 +76,11 @@ Goes true when triggered by a Trap. Stays true until reset.
 
 ## Version History
 
+### Version 1.2.1
+
+- Use Node 22
+- Update dependencies
+
 ### Version 1.2.0
 
 - Add count variable and reset action
