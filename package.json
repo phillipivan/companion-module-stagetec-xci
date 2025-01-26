@@ -1,6 +1,6 @@
 {
 	"name": "stagetec-xci",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"main": "src/main.js",
 	"type": "module",
 	"scripts": {
@@ -16,14 +16,17 @@
 		"url": "git+https://github.com/bitfocus/companion-module-stagetec-xci.git"
 	},
 	"dependencies": {
-		"@companion-module/base": "~1.10.0",
-		"net-snmp": "~3.14.1"
+		"@companion-module/base": "~1.11.3",
+		"net-snmp": "~3.18.2"
 	},
 	"devDependencies": {
-		"@companion-module/tools": "^2.0.3",
-		"eslint": "^9.10.0",
-		"prettier": "^3.3.3"
+		"@companion-module/tools": "^2.1.1",
+		"eslint": "^9.19.0",
+		"prettier": "^3.4.2"
+	},
+	"engines": {
+		"node": "^22.13"
 	},
 	"prettier": "@companion-module/tools/.prettierrc.json",
-	"packageManager": "yarn@4.4.1"
+	"packageManager": "yarn@4.6.0"
 }
