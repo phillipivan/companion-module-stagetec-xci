@@ -21,7 +21,7 @@ export default function (self) {
 					id: 'cellVar',
 					type: 'textinput',
 					label: 'Logic Cell',
-					useVariables: true,
+					useVariables: { local: true },
 					tooltip: 'Variable must return an integer between 1 and 256',
 					isVisible: (options) => {
 						return options.useVar && !options.all
@@ -46,7 +46,7 @@ export default function (self) {
 					},
 				},
 			],
-			callback: async (action) => {
+			callback: async (action, context) => {
 				let varList = []
 				if (action.options.all) {
 					for (let i = 1; i <= 256; i++) {
@@ -59,7 +59,7 @@ export default function (self) {
 					return true
 				}
 				const cell = action.options.useVar
-					? parseInt(await self.parseVariablesInString(action.options.cellVar))
+					? parseInt(await context.parseVariablesInString(action.options.cellVar))
 					: parseInt(action.options.cell)
 				if (isNaN(cell) || cell < 1 || cell > 256) {
 					self.log('warn', `Invalid Cell! ${cell} from ${action.options.cellVar}`)
@@ -93,7 +93,7 @@ export default function (self) {
 					id: 'cellVar',
 					type: 'textinput',
 					label: 'Logic Cell',
-					useVariables: true,
+					useVariables: { local: true },
 					tooltip: 'Variable must return an integer between 1 and 256',
 					isVisible: (options) => {
 						return options.useVar && !options.all
@@ -118,7 +118,7 @@ export default function (self) {
 					},
 				},
 			],
-			callback: async (action) => {
+			callback: async (action, context) => {
 				let varList = []
 				if (action.options.all) {
 					for (let i = 1; i <= 256; i++) {
@@ -130,7 +130,7 @@ export default function (self) {
 					return true
 				}
 				const cell = action.options.useVar
-					? parseInt(await self.parseVariablesInString(action.options.cellVar))
+					? parseInt(await context.parseVariablesInString(action.options.cellVar))
 					: parseInt(action.options.cell)
 				if (isNaN(cell) || cell < 1 || cell > 256) {
 					self.log('warn', `Invalid Cell! ${cell} from ${action.options.cellVar}`)

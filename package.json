@@ -1,6 +1,6 @@
 {
 	"name": "stagetec-xci",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"main": "src/main.js",
 	"type": "module",
 	"scripts": {
@@ -17,16 +17,16 @@
 	},
 	"dependencies": {
 		"@companion-module/base": "~1.11.3",
-		"net-snmp": "~3.18.2"
+		"net-snmp": "~3.19.1"
 	},
 	"devDependencies": {
 		"@companion-module/tools": "^2.1.1",
-		"eslint": "^9.19.0",
-		"prettier": "^3.4.2"
+		"eslint": "^9.21.0",
+		"prettier": "^3.5.3"
 	},
 	"engines": {
 		"node": "^22.13"
 	},
 	"prettier": "@companion-module/tools/.prettierrc.json",
-	"packageManager": "yarn@4.6.0"
+	"packageManager": "yarn@4.7.0"
 }
