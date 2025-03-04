@@ -30,7 +30,7 @@ export default async function (self) {
 					type: 'textinput',
 					label: 'Logic Cell',
 					default: '',
-					useVariables: true,
+					useVariables: { local: true },
 					tooltip: 'Variable must return an integer between 1 and 256',
 					isVisible: (options) => {
 						return options.useVar
@@ -82,7 +82,7 @@ export default async function (self) {
 					type: 'textinput',
 					label: 'Logic Cell',
 					default: '',
-					useVariables: true,
+					useVariables: { local: true },
 					tooltip: 'Variable must return an integer between 1 and 256',
 					isVisible: (options) => {
 						return options.useVar
