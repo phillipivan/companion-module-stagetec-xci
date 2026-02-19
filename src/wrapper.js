@@ -35,7 +35,7 @@ export class SharedUDPSocketWrapper extends EventEmitter {
 		this.messageHandler = (msg, rinfo) => {
 			// Only emit if the source address matches
 			if (rinfo.address === this.allowedAddress) {
-				this.emit('message', msg, rinfo)
+				this.emit('message', Buffer.from(msg), rinfo)
 			}
 			// Otherwise silently drop
 		}
