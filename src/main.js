@@ -20,7 +20,10 @@ const SnmpAgentOptions = {
 
 const trapCallback = function (error, notification) {
 	if (error) {
-		this.log('error', JSON.stringify(error))
+		this.log('error', `Trap error name: ${error.name}`)
+		this.log('error', `Trap error message: ${error.message}`)
+		this.log('error', `Trap error keys: ${Object.getOwnPropertyNames(error).join(', ')}`)
+		this.log('error', `Trap error full: ${JSON.stringify(error, Object.getOwnPropertyNames(error))}`)
 		this.updateStatus(InstanceStatus.UnknownError, JSON.stringify(error))
 	} else {
 		const trap = notification
@@ -85,7 +88,6 @@ class StagetecXCI extends InstanceBase {
 
 	async init(config) {
 		this.config = config
-		//this.snmpReciever = snmp.createReceiver(options, trapCallback.bind(this))
 		if (this.config.host === undefined || this.config.host === '') {
 			this.updateStatus(InstanceStatus.BadConfig)
 			this.log('error', 'Invalid config - missing IP')
@@ -150,6 +152,7 @@ class StagetecXCI extends InstanceBase {
 						dgramModule: this.socketWrapper,
 					}
 					this.snmpReciever = snmp.createReceiver(receiverOptions, trapCallback.bind(this))
+					this.snmpReciever.authorizer.addCommunity(this.config.community)
 					this.log('info', `Bound to Port 162 and waiting for Traps from ${this.config.host}`)
 					this.updateStatus(InstanceStatus.Ok)
 					resolve()
